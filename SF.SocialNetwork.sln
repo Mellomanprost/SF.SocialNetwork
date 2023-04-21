@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33328.57
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF.SocialNetwork.Clich", "SF.SocialNetwork.Clich\SF.SocialNetwork.Clich.csproj", "{0AFB02BE-3370-4D7A-9BC0-4EF5667CDAAC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AFB02BE-3370-4D7A-9BC0-4EF5667CDAAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AFB02BE-3370-4D7A-9BC0-4EF5667CDAAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AFB02BE-3370-4D7A-9BC0-4EF5667CDAAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AFB02BE-3370-4D7A-9BC0-4EF5667CDAAC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {565B3F8B-9A59-4BFF-95C1-B40BBE448669}
+	EndGlobalSection
+EndGlobal

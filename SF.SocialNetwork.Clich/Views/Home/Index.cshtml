@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using SocialNetwork.Clich.Models.Users;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager;
+
+
+@{
+    ViewData["Title"] = "Главная";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="side">
+        <div class="center">
+            Пользуйтесь нашей самой крутой соцсетью! Регистрируйтесь всего за 2 минуты, делитесь мыслями, находите новых друзей.
+        </div>
+        <img class="main-img" src="https://pngimg.com/image/33747" />
+    </div>
+
+
+    <div class="main">
+        <partial name="Login" model="@Model.LoginView" />
+        <partial name="Register" model="@Model.RegisterView" />
+    </div>
+
+</div>
