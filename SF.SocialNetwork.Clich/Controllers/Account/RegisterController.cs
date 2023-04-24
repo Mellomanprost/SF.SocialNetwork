@@ -28,7 +28,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
         [HttpGet]
         public IActionResult Register()
         {
-            return View("Home/Register");
+            return View("Register"); 
         }
 
         [Route("RegisterPart2")]

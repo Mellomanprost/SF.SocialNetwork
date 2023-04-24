@@ -11,6 +11,16 @@ using SF.SocialNetwork.Clich.ViewModels.Account;
 using SF.SocialNetwork.Clich.Data.Repository;
 using SF.SocialNetwork.Clich.Data.UoW;
 
+/*
+
+Не нужны пока что
+
+using SF.SocialNetwork.Clich.Data;
+using SF.SocialNetwork.Clich.Extentions;
+using SF.SocialNetwork.Clich.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+*/
+
 
 namespace SF.SocialNetwork.Clich.Controllers.Account
 {
@@ -32,7 +42,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
         [HttpGet]
         public IActionResult Login()
         {
-            return View("Home/Login");
+            return View("Login");
         }
 
         [HttpGet]
@@ -68,7 +78,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
                 }
             }
-            return View("Views/Home/Index.cshtml");
+            return View("/Views/Home/Index.cshtml");
         }
 
         [Route("Logout")]

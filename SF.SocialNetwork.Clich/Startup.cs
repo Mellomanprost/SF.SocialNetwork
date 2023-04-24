@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SF.SocialNetwork.Clich.Data;
@@ -28,9 +29,17 @@ namespace SF.SocialNetwork.Clich
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
-            services.AddIdentity<User, IdentityRole>(opts =>
-                {
+            //var mapperConfig = new MapperConfiguration((v) =>
+            //{
+            //    v.AddProfile(new MappingProfile());
+            //});
+
+            //IMapper mapper = mapperConfig.CreateMapper();
+
+            //services.AddSingleton(mapper);
+
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection))
+                .AddIdentity<User, IdentityRole>(opts => {
                     opts.Password.RequiredLength = 5;
                     opts.Password.RequireNonAlphanumeric = false;
                     opts.Password.RequireLowercase = false;
@@ -40,7 +49,7 @@ namespace SF.SocialNetwork.Clich
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
-
+            services.AddControllersWithViews();
 
             services.AddRazorPages();
         }
@@ -60,6 +69,7 @@ namespace SF.SocialNetwork.Clich
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -69,6 +79,9 @@ namespace SF.SocialNetwork.Clich
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

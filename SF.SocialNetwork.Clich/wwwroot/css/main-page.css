@@ -43,3 +43,65 @@
 .background-white {
     background-color: white;
 }
+
+.block-reg {
+    margin: 20px;
+    padding: 30px;
+    align-content: center;
+    border-radius: 4px;
+    box-shadow: 0 1px 0 0 0, 0 0 0 1px #edeef0;
+}
+
+.center {
+    text-align: center;
+    align-content: center;
+    margin: 5px;
+}
+
+.frm {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.frm_text {
+    width: 100%;
+}
+
+.mrgn {
+    margin: 5px;
+}
+
+.date_control {
+    width: 25%;
+    display: inline;
+    min-width: max-content;
+}
+
+.btn_submit {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.text-color-gray {
+    color: slategray;
+}
+
+.text-size_12 {
+    font-size: 15px;
+}
+
+.enter_submit {
+    background-color: #5181b8;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
