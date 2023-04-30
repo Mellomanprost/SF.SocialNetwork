@@ -29,14 +29,15 @@ namespace SF.SocialNetwork.Clich
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            //var mapperConfig = new MapperConfiguration((v) =>
-            //{
-            //    v.AddProfile(new MappingProfile());
-            //});
 
-            //IMapper mapper = mapperConfig.CreateMapper();
+            var mapperConfig = new MapperConfiguration((v) =>
+            {
+                v.AddProfile(new MappingProfile());
+            });
 
-            //services.AddSingleton(mapper);
+            IMapper mapper = mapperConfig.CreateMapper();
+
+            services.AddSingleton(mapper);
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection))
                 .AddIdentity<User, IdentityRole>(opts => {
