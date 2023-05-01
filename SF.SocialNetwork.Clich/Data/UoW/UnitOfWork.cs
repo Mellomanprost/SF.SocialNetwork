@@ -1,9 +1,8 @@
-﻿using SF.SocialNetwork.Clich.Data.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SF.SocialNetwork.Clich.Data.UoW;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using SF.SocialNetwork.Clich.Data.Repository;
 
 namespace SF.SocialNetwork.Clich.Data.UoW
 {
@@ -20,7 +19,7 @@ namespace SF.SocialNetwork.Clich.Data.UoW
 
         public void Dispose()
         {
-
+           
         }
 
         public IRepository<TEntity> GetRepository<TEntity>(bool hasCustomRepository = true) where TEntity : class
@@ -46,7 +45,7 @@ namespace SF.SocialNetwork.Clich.Data.UoW
             }
 
             return (IRepository<TEntity>)_repositories[type];
-
+           
         }
         public int SaveChanges(bool ensureAutoHistory = false)
         {

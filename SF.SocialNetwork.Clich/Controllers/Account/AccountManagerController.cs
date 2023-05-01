@@ -1,48 +1,32 @@
-п»їusing System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SF.SocialNetwork.Clich.Models.Users;
 using SF.SocialNetwork.Clich.ViewModels.Account;
-using SF.SocialNetwork.Clich.Data.Repository;
-using SF.SocialNetwork.Clich.Data.UoW;
-
-/*
-
-РќРµ РЅСѓР¶РЅС‹ РїРѕРєР° С‡С‚Рѕ
-
-using SF.SocialNetwork.Clich.Data;
-using SF.SocialNetwork.Clich.Extentions;
-using SF.SocialNetwork.Clich.ViewModels;
-using Microsoft.AspNetCore.Authorization;
-*/
-
 
 namespace SF.SocialNetwork.Clich.Controllers.Account
 {
     public class AccountManagerController : Controller
     {
-        private readonly IMapper _mapper;
+        private IMapper _mapper;
 
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
-        public AccountManagerController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountManagerController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
         {
-            _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+            _mapper = mapper;
         }
+
 
         [Route("Login")]
         [HttpGet]
         public IActionResult Login()
         {
-            return View("Login");
+            return View("Home/Login");
         }
 
         [HttpGet]
@@ -58,7 +42,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
         {
             if (ModelState.IsValid)
             {
-
+               
                 var user = _mapper.Map<User>(model);
 
                 var result = await _signInManager.PasswordSignInAsync(user.Email, model.Password, model.RememberMe, false);
@@ -75,10 +59,10 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
                 }
                 else
                 {
-                    ModelState.AddModelError("", "РќРµРїСЂР°РІРёР»СЊРЅС‹Р№ Р»РѕРіРёРЅ Рё (РёР»Рё) РїР°СЂРѕР»СЊ");
+                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
                 }
             }
-            return View("/Views/Home/Index.cshtml");
+             return View("Views/Home/Index.cshtml");
         }
 
         [Route("Logout")]
@@ -89,5 +73,6 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
     }
 }

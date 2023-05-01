@@ -1,10 +1,11 @@
-﻿@model SocialNetwork.Clich.ViewModels.Account.RegisterViewModel
+﻿@model SF.SocialNetwork.Clich.ViewModels.Account.RegisterViewModel
 
 @{
     ViewData["Title"] = "Register";
 }
 
-<partial name="_ValidationScriptsPartial" />
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>
 
 <div class="block-reg background-white">
     <h3 class="center">Продолжение регистрации</h3>
@@ -32,6 +33,12 @@
 
             <input asp-for="Year" class="form-control date_control" />
             <span asp-validation-for="Year" class="text-danger"></span>
+        </div>
+        <div>
+            <div class="mrgn">
+                <input asp-for="Login" class="form-control" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
         </div>
         <div>
             <div class="mrgn">

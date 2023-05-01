@@ -1,7 +1,4 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SF.SocialNetwork.Clich.Data.Repository
 {
@@ -11,6 +8,6 @@ namespace SF.SocialNetwork.Clich.Data.Repository
         T Get(int id);
         void Create(T item);
         void Update(T item);
-        void Delete(T id);
+        void Delete(int id);
     }
 }

@@ -78,6 +78,10 @@
     min-width: max-content;
 }
 
+.date_box {
+    width: 100%;
+}
+
 .btn_submit {
     background-color: #04AA6D;
     color: white;

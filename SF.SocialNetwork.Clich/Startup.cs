@@ -1,17 +1,23 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using SF.SocialNetwork.Clich.Data;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using SF.SocialNetwork.Clich.Data.UoW;
+using Microsoft.Extensions.Logging;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using SF.SocialNetwork.Clich.Data;
+using SF.SocialNetwork.Clich.Data.Repository;
+using SF.SocialNetwork.Clich.Extentions;
 using SF.SocialNetwork.Clich.Models.Users;
 
 namespace SF.SocialNetwork.Clich
@@ -25,9 +31,9 @@ namespace SF.SocialNetwork.Clich
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             string connection = Configuration.GetConnectionString("DefaultConnection");
 
             var mapperConfig = new MapperConfiguration((v) =>
@@ -39,39 +45,47 @@ namespace SF.SocialNetwork.Clich
 
             services.AddSingleton(mapper);
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection))
+
+            services
+                .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection))
+                .AddUnitOfWork()
+                    .AddCustomRepository<Message, MessageRepository>()
                 .AddIdentity<User, IdentityRole>(opts => {
-                    opts.Password.RequiredLength = 5;
-                    opts.Password.RequireNonAlphanumeric = false;
-                    opts.Password.RequireLowercase = false;
-                    opts.Password.RequireUppercase = false;
+                    opts.Password.RequiredLength = 5;   
+                    opts.Password.RequireNonAlphanumeric = false;  
+                    opts.Password.RequireLowercase = false; 
+                    opts.Password.RequireUppercase = false; 
                     opts.Password.RequireDigit = false;
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
-
             services.AddRazorPages();
+
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseExceptionHandler("/Home/Error");
+              
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
-
-            app.UseStaticFiles();
+            var cachePeriod = "0";
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Append("Cache-Control", $"public, max-age={cachePeriod}");
+                }
+            });
 
             app.UseRouting();
 
@@ -80,11 +94,13 @@ namespace SF.SocialNetwork.Clich
 
             app.UseEndpoints(endpoints =>
             {
+                // определение маршрутов
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }
+
     }
 }

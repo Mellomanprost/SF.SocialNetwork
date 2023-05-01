@@ -23,6 +23,10 @@
     color: white;
 }
 
+.right-align {
+    float: right;
+}
+
 .topnav .search-container {
     float: right;
 }
@@ -51,4 +55,51 @@
     .topnav input[type=text] {
         border: 1px solid #ccc;
     }
+}
+
+/*Added from max-shelll*/
+
+.gray-text {
+    color: darkgray;
+}
+
+.lined-block {
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 1px;
+    border-top: 1px;
+    border-color: #ddd;
+    padding: 10px;
+    border-style: dashed;
+    margin: 10px;
+}
+
+.center-align {
+    align-content: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ava {
+    width: 100%;
+    max-width: 150px;
+}
+
+.min-width-but {
+    max-width: 150px;
+    width: 100%;
+}
+
+.friendcontainer {
+    overflow: hidden;
+}
+
+.friendbox {
+    white-space: nowrap
+}
+
+.friendbox .datadiv {
+    display: inline-block;
+    max-width: 150px;
 }

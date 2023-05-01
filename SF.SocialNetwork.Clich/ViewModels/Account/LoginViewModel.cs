@@ -10,7 +10,7 @@ namespace SF.SocialNetwork.Clich.ViewModels.Account
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email", Prompt = "Введите email")]
+        [Display(Name = "Email", Prompt ="Введите email")]
         public string Email { get; set; }
 
         [Required]

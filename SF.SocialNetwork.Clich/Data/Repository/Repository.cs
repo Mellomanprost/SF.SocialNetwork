@@ -1,52 +1,41 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SF.SocialNetwork.Clich.Data.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected DbContext _db;
-
-        public DbSet<T> Set { get; private set; }
+        private DbContext _db;
 
         public Repository(ApplicationDbContext db)
         {
             _db = db;
-            var set = _db.Set<T>();
-            set.Load();
-
-            Set = set;
         }
 
         public void Create(T item)
         {
-            Set.Add(item);
-            _db.SaveChanges();
+            throw new NotImplementedException();
         }
 
-        public void Delete(T item)
+        public void Delete(int id)
         {
-            Set.Remove(item);
-            _db.SaveChanges();
+            throw new NotImplementedException();
         }
 
         public T Get(int id)
         {
-            return Set.Find(id);
+            throw new NotImplementedException();
         }
 
         public IEnumerable<T> GetAll()
         {
-            return Set;
+            throw new NotImplementedException();
         }
 
         public void Update(T item)
         {
-            Set.Update(item);
-            _db.SaveChanges();
+            throw new NotImplementedException();
         }
     }
 }
