@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SF.SocialNetwork.Clich.Models.Users;
@@ -42,10 +43,11 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
         {
             if (ModelState.IsValid)
             {
-               
+
                 var user = _mapper.Map<User>(model);
 
                 var result = await _signInManager.PasswordSignInAsync(user.Email, model.Password, model.RememberMe, false);
+
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
@@ -62,7 +64,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
                 }
             }
-             return View("Views/Home/Index.cshtml");
+            return View("Views/Shared/Login.cshtml", model);
         }
 
         [Route("Logout")]
@@ -74,5 +76,18 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
+        [Route("MyPage")]
+        [HttpGet]
+        public async Task<IActionResult> MyPage()
+        {
+            var user = User;
+
+            var result = await _userManager.GetUserAsync(user);
+
+            var model = new UserViewModel(result);
+
+            return View("User", model);
+        }
     }
 }
