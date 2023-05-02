@@ -1,8 +1,10 @@
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SF.SocialNetwork.Clich.Extentions;
 using SF.SocialNetwork.Clich.Models.Users;
 using SF.SocialNetwork.Clich.ViewModels.Account;
 
@@ -47,14 +49,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
 
                 if (result.Succeeded)
                 {
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
-                    {
-                        return Redirect(model.ReturnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("MyPage", "AccountManager");
-                    }
+                    return RedirectToAction("MyPage", "AccountManager");
                 }
                 else
                 {
@@ -87,6 +82,34 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
         }
 
         [Authorize]
+        [Route("Update")]
+        [HttpPost]
+        public async Task<IActionResult> Update(UserEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(model.UserId);
+
+                user.Convert(model);
+
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("MyPage", "AccountManager");
+                }
+                else
+                {
+                    return RedirectToAction("Edit", "AccountManager");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Некорректные данные");
+                return View("Edit", model);
+            }
+        }
+
+        [Authorize]
         [Route("MyPage")]
         [HttpGet]
         public async Task<IActionResult> MyPage()
@@ -98,6 +121,17 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
             var model = new UserViewModel(result);
 
             return View("User", model);
+        }
+
+        [Route("UserList")]
+        [HttpPost]
+        public IActionResult UserList(string search)
+        {
+            var model = new SearchViewModel
+            {
+                UserList = _userManager.Users.Where(x => x.GetFullName().Contains(search)).ToList()
+            };
+            return View("UserList", model);
         }
     }
 }
