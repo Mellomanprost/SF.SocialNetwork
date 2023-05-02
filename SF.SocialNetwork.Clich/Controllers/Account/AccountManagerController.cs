@@ -8,6 +8,11 @@ using SF.SocialNetwork.Clich.Extentions;
 using SF.SocialNetwork.Clich.Models.Users;
 using SF.SocialNetwork.Clich.ViewModels.Account;
 
+using SF.SocialNetwork.Clich.Data;
+using SF.SocialNetwork.Clich.Data.Repository;
+using SF.SocialNetwork.Clich.Data.UoW;
+using SF.SocialNetwork.Clich.ViewModels;
+
 namespace SF.SocialNetwork.Clich.Controllers.Account
 {
     public class AccountManagerController : Controller
@@ -68,6 +73,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
         [Route("Edit")]
         [HttpGet]
         public IActionResult Edit()
@@ -76,9 +82,9 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
 
             var result = _userManager.GetUserAsync(user);
 
-            var editmodel = _mapper.Map<UserEditViewModel>(result.Result);
+            var editModel = _mapper.Map<UserEditViewModel>(result.Result);
 
-            return View("Edit", editmodel);
+            return View("Edit", editModel);
         }
 
         [Authorize]
@@ -129,7 +135,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
         {
             var model = new SearchViewModel
             {
-                UserList = _userManager.Users.Where(x => x.GetFullName().Contains(search)).ToList()
+                UserList = _userManager.Users.AsEnumerable().Where(x => x.GetFullName().ToLower().Contains(search) || x.GetFullName().Contains(search)).ToList()
             };
             return View("UserList", model);
         }
