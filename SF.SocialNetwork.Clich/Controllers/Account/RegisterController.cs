@@ -21,12 +21,11 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
             _signInManager = signInManager;
         }
 
-
         [Route("Register")]
         [HttpGet]
         public IActionResult Register()
         {
-            return View("Home/Register");
+            return View("Register");
         }
 
         [Route("RegisterPart2")]
@@ -35,8 +34,6 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
         {
             return View("RegisterPart2", model);
         }
-
-
 
         [Route("Register")]
         [HttpPost]

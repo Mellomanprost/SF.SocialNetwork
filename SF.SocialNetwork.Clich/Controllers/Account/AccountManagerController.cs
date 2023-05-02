@@ -22,12 +22,11 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
             _mapper = mapper;
         }
 
-
         [Route("Login")]
         [HttpGet]
         public IActionResult Login()
         {
-            return View("Home/Login");
+            return View("Login");
         }
 
         [HttpGet]
@@ -43,10 +42,8 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
         {
             if (ModelState.IsValid)
             {
-
-                var user = _mapper.Map<User>(model);
-
-                var result = await _signInManager.PasswordSignInAsync(user.Email, model.Password, model.RememberMe, false);
+                var user = _userManager.FindByEmailAsync(model.Email).Result;
+                var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
                 {
@@ -56,7 +53,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("MyPage", "AccountManager");
                     }
                 }
                 else
@@ -74,6 +71,19 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        [Route("Edit")]
+        [HttpGet]
+        public IActionResult Edit()
+        {
+            var user = User;
+
+            var result = _userManager.GetUserAsync(user);
+
+            var editmodel = _mapper.Map<UserEditViewModel>(result.Result);
+
+            return View("Edit", editmodel);
         }
 
         [Authorize]
