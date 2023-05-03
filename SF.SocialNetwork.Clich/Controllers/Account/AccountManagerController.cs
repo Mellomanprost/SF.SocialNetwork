@@ -147,7 +147,11 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
 
             var result = await _userManager.GetUserAsync(currentUser);
 
-            var list = _userManager.Users.AsEnumerable().Where(x => x.GetFullName().ToLower().Contains(search.ToLower())).ToList();
+            var list = _userManager.Users.AsEnumerable().ToList();
+            if (!string.IsNullOrEmpty((search)))
+            {
+                list = list.Where(x => x.GetFullName().ToLower().Contains(search.ToLower())).ToList();
+            }
             var withFriend = await GetAllFriend();
 
             var data = new List<UserWithFriendExt>();

@@ -20,7 +20,7 @@ namespace SF.SocialNetwork.Clich.Data.Repository
 
         public void Create(T item)
         {
-            Set.Add(item);
+             Set.Add(item);
             _db.SaveChanges();
         }
 
