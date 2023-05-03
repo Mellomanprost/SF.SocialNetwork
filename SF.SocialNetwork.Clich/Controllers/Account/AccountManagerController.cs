@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SF.SocialNetwork.Clich.Data;
 using SF.SocialNetwork.Clich.Extentions;
 using SF.SocialNetwork.Clich.Models.Users;
 using SF.SocialNetwork.Clich.ViewModels.Account;
@@ -279,6 +280,25 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
 
             var model = await GenerateChat(id);
             return View("Chat", model);
+        }
+
+        [Route("Generate")]
+        [HttpGet]
+        public async Task<IActionResult> Generate()
+        {
+
+            var userGen = new GenerateUsers();
+            var userList = userGen.Populate(35);
+
+            foreach (var user in userList)
+            {
+                var result = await _userManager.CreateAsync(user, "123456");
+
+                if (!result.Succeeded)
+                    continue;
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
