@@ -1,2 +1,2 @@
 # SF.SocialNetwork
-## Clich
+## Clich - project of social network
