@@ -49,7 +49,8 @@ namespace SF.SocialNetwork.Clich
             services
                 .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection))
                 .AddUnitOfWork()
-                    .AddCustomRepository<Message, MessageRepository>()
+                .AddCustomRepository<Friend, FriendsRepository>()
+                .AddCustomRepository<Message, MessageRepository>()
                 .AddIdentity<User, IdentityRole>(opts => {
                     opts.Password.RequiredLength = 5;   
                     opts.Password.RequireNonAlphanumeric = false;  
