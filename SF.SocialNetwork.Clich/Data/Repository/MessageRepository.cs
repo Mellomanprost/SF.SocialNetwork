@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SF.SocialNetwork.Clich.Models.Users;
 
@@ -12,7 +13,7 @@ namespace SF.SocialNetwork.Clich.Data.Repository
 
         }
 
-        public List<Message> GetMessages(User sender, User recipient)
+        public async Task<List<Message>> GetMessages(User sender, User recipient)
         {
             Set.Include(x => x.Recipient);
             Set.Include(x => x.Sender);
@@ -21,9 +22,9 @@ namespace SF.SocialNetwork.Clich.Data.Repository
             var to = Set.AsEnumerable().Where(x => x.SenderId == recipient.Id && x.RecipientId == sender.Id).ToList();
 
             var itog = new List<Message>();
-            itog.AddRange(from);
-            itog.AddRange(to);
-            itog.OrderBy(x => x.Id);
+            await Task.Run(() => itog.AddRange(from));
+            await Task.Run(() => itog.AddRange(to));
+            await Task.Run(() => itog.OrderBy(x => x.Id));
             return itog;
         }
     }

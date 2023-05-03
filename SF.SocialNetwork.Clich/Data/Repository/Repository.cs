@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace SF.SocialNetwork.Clich.Data.Repository
@@ -18,32 +19,32 @@ namespace SF.SocialNetwork.Clich.Data.Repository
             Set = set;
         }
 
-        public void Create(T item)
+        public async Task Create(T item)
         {
-             Set.Add(item);
-            _db.SaveChanges();
+            await Task.Run(() => Set.Add(item));
+            await Task.Run(() => _db.SaveChanges());
         }
 
-        public void Delete(T id)
+        public async Task Delete(T id)
         {
-            Set.Remove(id);
-            _db.SaveChanges();
+            await Task.Run(() => Set.Remove(id));
+            await Task.Run(() => _db.SaveChanges());
         }
 
-        public T Get(int id)
+        public async Task<T> Get(int id)
         {
-            return Set.Find(id);
+            return await Task.Run(() => Set.Find(id));
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            return Set;
+            return await Task.Run(() => Set);
         }
 
-        public void Update(T item)
+        public async Task Update(T item)
         {
-            Set.Update(item);
-            _db.SaveChanges();
+            await Task.Run(() => Set.Update(item));
+            await Task.Run(() => _db.SaveChanges());
         }
     }
 }

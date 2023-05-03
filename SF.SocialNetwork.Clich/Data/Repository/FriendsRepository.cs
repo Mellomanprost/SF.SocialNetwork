@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SF.SocialNetwork.Clich.Models.Users;
 
@@ -12,7 +13,7 @@ namespace SF.SocialNetwork.Clich.Data.Repository
 
         }
 
-        public void AddFriend(User target, User friend)
+        public async Task AddFriend(User target, User friend)
         {
             var friends = Set.AsEnumerable()
                 .FirstOrDefault(x => x.UserId == target.Id && x.CurrentFriendId == friend.Id);
@@ -27,25 +28,25 @@ namespace SF.SocialNetwork.Clich.Data.Repository
                     CurrentFriendId = friend.Id
                 };
 
-                Create(item);
+                await Task.Run(() => Create(item));
             }
         }
 
-        public List<User> GetFriendsByUser(User target)
+        public async Task<List<User>> GetFriendsByUser(User target)
         {
             var friends = Set.Include(x => x.CurrentFriend).AsEnumerable().Where(x => x.UserId == target.Id)
                 .Select(x => x.CurrentFriend);
 
-            return friends.ToList();
+            return await Task.Run(() => friends.ToList());
         }
 
-        public void DeleteFriend(User target, User friend)
+        public async Task DeleteFriend(User target, User friend)
         {
             var friends = Set.AsEnumerable().FirstOrDefault(x => x.UserId == target.Id && x.CurrentFriendId == friend.Id);
 
             if (friends != null)
             {
-                Delete(friends);
+                await Task.Run(() => Delete(friends));
             }
         }
     }

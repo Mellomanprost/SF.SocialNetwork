@@ -155,12 +155,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
             var withFriend = await GetAllFriend();
 
             var data = new List<UserWithFriendExt>();
-            list.ForEach(x =>
-            {
-                var t = _mapper.Map<UserWithFriendExt>(x);
-                t.IsFriendWithCurrent = withFriend.Where(y => y.Id == x.Id || x.Id == result.Id).Count() != 0;
-                data.Add(t);
-            });
+            await Task.Run(() => list.ForEach(x => { var t = _mapper.Map<UserWithFriendExt>(x); t.IsFriendWithCurrent = withFriend.Where(y => y.Id == x.Id || x.Id == result.Id).Count() != 0; data.Add(t); }));
 
             var model = new SearchViewModel()
             {
@@ -174,7 +169,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
         {
             var repository = _unitOfWork.GetRepository<Friend>() as FriendsRepository;
 
-            return repository.GetFriendsByUser(user);
+            return await Task.Run(() => repository.GetFriendsByUser(user));
         }
 
         private async Task<List<User>> GetAllFriend()
@@ -185,7 +180,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
 
             var repository = _unitOfWork.GetRepository<Friend>() as FriendsRepository;
 
-            return repository.GetFriendsByUser(result);
+            return await Task.Run(() => repository.GetFriendsByUser(result));
         }
 
 
@@ -201,7 +196,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
 
             var repository = _unitOfWork.GetRepository<Friend>() as FriendsRepository;
 
-            repository.AddFriend(result, friend);
+            await Task.Run(() => repository.AddFriend(result, friend));
 
             return RedirectToAction("MyPage", "AccountManager");
         }
@@ -218,7 +213,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
 
             var repository = _unitOfWork.GetRepository<Friend>() as FriendsRepository;
 
-            repository.DeleteFriend(result, friend);
+            await Task.Run(() => repository.DeleteFriend(result, friend));
 
             return RedirectToAction("MyPage", "AccountManager");
         }
@@ -248,7 +243,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
                 Recipient = friend,
                 Text = chat.NewMessage.Text,
             };
-            repository.Create(item);
+            await Task.Run(() => repository.Create(item));
 
             var model = await GenerateChat(id);
             return View("Chat", model);
@@ -263,7 +258,7 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
 
             var repository = _unitOfWork.GetRepository<Message>() as MessageRepository;
 
-            var mess = repository.GetMessages(result, friend);
+            var mess = await repository.GetMessages(result, friend);
 
             var model = new ChatViewModel()
             {
