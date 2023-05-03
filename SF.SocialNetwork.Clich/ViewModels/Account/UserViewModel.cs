@@ -15,6 +15,6 @@ namespace SF.SocialNetwork.Clich.ViewModels.Account
             User = user;
         }
 
-        //public List<User> Friends { get; set; }
+        public List<User> Friends { get; set; }
     }
 }
