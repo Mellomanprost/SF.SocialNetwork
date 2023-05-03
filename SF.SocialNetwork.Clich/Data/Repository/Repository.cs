@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 namespace SF.SocialNetwork.Clich.Data.Repository
@@ -8,11 +7,7 @@ namespace SF.SocialNetwork.Clich.Data.Repository
     {
         protected DbContext _db;
 
-        public DbSet<T> Set
-        {
-            get;
-            private set;
-        }
+        public DbSet<T> Set { get; private set; }
 
         public Repository(ApplicationDbContext db)
         {
