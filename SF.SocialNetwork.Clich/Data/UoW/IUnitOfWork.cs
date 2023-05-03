@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using SF.SocialNetwork.Clich.Data.Repository;
 
 namespace SF.SocialNetwork.Clich.Data.UoW
 {
-    public interface IUnitOfWork: IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         int SaveChanges(bool ensureAutoHistory = false);
 

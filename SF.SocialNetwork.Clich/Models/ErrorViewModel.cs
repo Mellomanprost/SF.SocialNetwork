@@ -1,5 +1,3 @@
-using System;
-
 namespace SF.SocialNetwork.Clich.Models
 {
     public class ErrorViewModel

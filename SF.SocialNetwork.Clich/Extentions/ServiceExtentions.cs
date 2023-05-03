@@ -1,8 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using SF.SocialNetwork.Clich.Data.Repository;
 using SF.SocialNetwork.Clich.Data.UoW;
 

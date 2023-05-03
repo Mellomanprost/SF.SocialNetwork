@@ -5,10 +5,10 @@
 
 <div class="right-align">
     @if (SignInManager.IsSignedIn(User))
-        {
-            <form method="post" asp-controller="AccountManager" asp-action="Logout">
-                <input class="enter_submit" type="submit" value="Выход" />
-            </form>
+    {
+        <form method="post" asp-controller="AccountManager" asp-action="Logout">
+            <input class="enter_submit" type="submit" value="Выход" />
+        </form>
 
-        }
+    }
 </div>

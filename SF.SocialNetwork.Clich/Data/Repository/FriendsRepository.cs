@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SF.SocialNetwork.Clich.Models.Users;
 
@@ -28,7 +26,7 @@ namespace SF.SocialNetwork.Clich.Data.Repository
                     CurrentFriend = friend,
                     CurrentFriendId = friend.Id
                 };
-                
+
                 Create(item);
             }
         }

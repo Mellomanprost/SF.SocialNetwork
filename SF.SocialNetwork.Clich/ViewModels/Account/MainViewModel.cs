@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SF.SocialNetwork.Clich.ViewModels.Account
+﻿namespace SF.SocialNetwork.Clich.ViewModels.Account
 {
     public class MainViewModel
     {

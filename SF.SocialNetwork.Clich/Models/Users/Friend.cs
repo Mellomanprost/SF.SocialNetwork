@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SF.SocialNetwork.Clich.Models.Users
+﻿namespace SF.SocialNetwork.Clich.Models.Users
 {
     public class Friend
     {

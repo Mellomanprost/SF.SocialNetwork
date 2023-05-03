@@ -1,21 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using SF.SocialNetwork.Clich.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SF.SocialNetwork.Clich.Data.UoW;
-using Microsoft.Extensions.Logging;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using SF.SocialNetwork.Clich.Data;
 using SF.SocialNetwork.Clich.Data.Repository;
 using SF.SocialNetwork.Clich.Extentions;
 using SF.SocialNetwork.Clich.Models.Users;
@@ -51,11 +43,12 @@ namespace SF.SocialNetwork.Clich
                 .AddUnitOfWork()
                 .AddCustomRepository<Friend, FriendsRepository>()
                 .AddCustomRepository<Message, MessageRepository>()
-                .AddIdentity<User, IdentityRole>(opts => {
-                    opts.Password.RequiredLength = 5;   
-                    opts.Password.RequireNonAlphanumeric = false;  
-                    opts.Password.RequireLowercase = false; 
-                    opts.Password.RequireUppercase = false; 
+                .AddIdentity<User, IdentityRole>(opts =>
+                {
+                    opts.Password.RequiredLength = 5;
+                    opts.Password.RequireNonAlphanumeric = false;
+                    opts.Password.RequireLowercase = false;
+                    opts.Password.RequireUppercase = false;
                     opts.Password.RequireDigit = false;
                 })
                     .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -75,7 +68,7 @@ namespace SF.SocialNetwork.Clich
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-              
+
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -102,6 +95,5 @@ namespace SF.SocialNetwork.Clich
                 endpoints.MapRazorPages();
             });
         }
-
     }
 }

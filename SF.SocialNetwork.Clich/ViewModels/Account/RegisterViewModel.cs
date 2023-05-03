@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SF.SocialNetwork.Clich.ViewModels.Account
 {
@@ -15,7 +10,7 @@ namespace SF.SocialNetwork.Clich.ViewModels.Account
         [Display(Name = "Имя", Prompt = "Введите имя")]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage ="Поле Фамилия обязательно для заполнения")]
+        [Required(ErrorMessage = "Поле Фамилия обязательно для заполнения")]
         [DataType(DataType.Text)]
         [Display(Name = "Фамилия", Prompt = "Введите фамилию")]
         public string LastName { get; set; }
