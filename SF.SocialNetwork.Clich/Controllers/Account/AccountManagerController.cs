@@ -183,7 +183,6 @@ namespace SF.SocialNetwork.Clich.Controllers.Account
             return await Task.Run(() => repository.GetFriendsByUser(result));
         }
 
-
         [Route("AddFriend")]
         [HttpPost]
         public async Task<IActionResult> AddFriend(string id)
